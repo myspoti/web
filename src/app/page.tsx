@@ -1,9 +1,16 @@
-import Signin from "./components/Signin";
+import { getAuthSession } from "@/utils/serverUtils";
+import { redirect } from "next/navigation";
 
-export default function Home() {
+export default async function Home() {
+  const session = await getAuthSession();
+
+  if (!session) {
+    redirect("/");
+  }
+
   return (
     <>
-      <Signin />
+      <p>hi</p>
     </>
   );
 }
