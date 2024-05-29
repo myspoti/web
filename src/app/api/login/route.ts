@@ -1,14 +1,14 @@
 import { BASE_URL } from "@/constants/path";
 import randomString from "@/utils/randomString";
-import type { NextApiResponse } from "next";
+import { redirect } from "next/navigation";
 import qs from "querystring";
 
-export default function handler(res: NextApiResponse) {
+export default function GET() {
   const state = randomString(16);
   const scope = "user-read-private user-read-email";
   // const scope = "user-read-private user-read-email user-read-playback-state user-modify-playback-state streaming";
 
-  res.redirect(
+  redirect(
     "https://accounts.spotify.com/authorize?" +
       qs.stringify({
         response_type: "code",

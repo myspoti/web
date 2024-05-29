@@ -1,14 +1,15 @@
 import { setCookie } from "cookies-next";
 import { NextApiRequest, NextApiResponse } from "next";
 import qs from "querystring";
-import { postAuthorizationCodeToken } from "../token";
+import { postAuthorizationCodeToken } from "../../../utils/token";
+import { redirect } from "next/navigation";
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default function GET(req: NextApiRequest, res: NextApiResponse) {
   const code = typeof req.query.code === "string" ? req.query.code : null;
   const state = typeof req.query.state === "string" ? req.query.state : null;
 
   if (state === null || code === null) {
-    res.redirect(
+    redirect(
       "/#" +
         qs.stringify({
           error: "state_mismatch",
@@ -33,7 +34,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
             httpOnly: true,
           });
 
-          res.redirect("/");
+          redirect("/");
         }
       )
       .catch((error: any) => {
