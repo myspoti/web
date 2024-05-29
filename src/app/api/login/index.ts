@@ -1,12 +1,12 @@
 import { BASE_URL } from "@/constants/path";
 import randomString from "@/utils/randomString";
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiResponse } from "next";
 import qs from "querystring";
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default function handler(res: NextApiResponse) {
   const state = randomString(16);
-  const scope =
-    "user-read-private user-read-email user-read-playback-state user-modify-playback-state streaming";
+  const scope = "user-read-private user-read-email";
+  // const scope = "user-read-private user-read-email user-read-playback-state user-modify-playback-state streaming";
 
   res.redirect(
     "https://accounts.spotify.com/authorize?" +
